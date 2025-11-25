@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Small Business Profit Calculator (USD)</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8L67SWHCB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-H8L67SWHCB');
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>Small Business Profit Calculator</h1>
+      <p class="subtitle">
+        Enter your monthly revenue and costs to calculate net profit and break-even point (USD).
+      </p>
+    </header>
+
+    <!-- Main Tabs -->
+    <nav class="tabs">
+      <button class="tab-button active" data-tab="sales">1. Revenue</button>
+      <button class="tab-button" data-tab="fixed">2. Fixed Costs</button>
+      <button class="tab-button" data-tab="variable">3. Variable Costs</button>
+      <button class="tab-button" data-tab="result">4. Result</button>
+    </nav>
+
+    <main class="tab-content">
+
+      <!-- 1. Revenue -->
+      <section id="tab-sales" class="tab-panel active">
+        <h2>1. Revenue</h2>
+        <p>Please enter your total monthly revenue (or average monthly revenue).</p>
+
+        <div class="field">
+          <label for="salesInput">Monthly Revenue</label>
+          <div class="input-with-unit">
+            <!-- USD 기준: 예시도 $ 단위로 축소 -->
+            <input id="salesInput" type="number" min="0" placeholder="e.g. 30000" />
+            <span class="unit">$</span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="toFixed" class="primary">Next: Fixed Costs</button>
+        </div>
+      </section>
+
+      <!-- 2. Fixed Costs -->
+      <section id="tab-fixed" class="tab-panel">
+        <h2>2. Fixed Costs</h2>
+        <p>Enter costs that are similar every month, regardless of revenue.</p>
+
+        <!-- Labor -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Labor Cost (Including Owner)</h3>
+            <button class="pass-button" data-pass-group="labor">Pass</button>
+          </div>
+          <div class="card-body" data-group="labor">
+            <div class="field">
+              <label for="laborStaffInput">Staff Wages (Total)</label>
+              <div class="input-with-unit">
+                <input id="laborStaffInput" type="number" min="0" placeholder="e.g. 4000" />
+                <span class="unit">$</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="laborOwnerInput">Owner Wage</label>
+              <div class="input-with-unit">
+                <input id="laborOwnerInput" type="number" min="0" placeholder="e.g. 3000" />
+                <span class="unit">$</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="socialInsuranceInput">Insurance / Benefits / Retirement</label>
+              <div class="input-with-unit">
+                <input id="socialInsuranceInput" type="number" min="0" placeholder="e.g. 800" />
+                <span class="unit">$</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rent -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Rent & Building Fees</h3>
+            <button class="pass-button" data-pass-group="rent">Pass</button>
+          </div>
+          <div class="card-body" data-group="rent">
+            <div class="field">
+              <label for="rentInput">Monthly Rent</label>
+              <div class="input-with-unit">
+                <input id="rentInput" type="number" min="0" placeholder="e.g. 2500" />
+                <span class="unit">$</span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="buildingMgmtInput">Building Management Fee</label>
+              <div class="input-with-unit">
+                <input id="buildingMgmtInput" type="number" min="0" placeholder="e.g. 400" />
+                <span class="unit">$</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other Fixed -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Other Fixed Costs</h3>
+            <button class="pass-button" data-pass-group="fixedOther">Pass</button>
+          </div>
+          <div class="card-body" data-group="fixedOther">
+            <p class="hint">
+              Music, phone/internet, water, security, accounting, loan interest, depreciation, etc.
+              Enter the approximate total per month.
+            </p>
+            <div class="field">
+              <label for="fixedOtherInput">Total Misc. Fixed Costs</label>
+              <div class="input-with-unit">
+                <input id="fixedOtherInput" type="number" min="0" placeholder="e.g. 700" />
+                <span class="unit">$</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-line">
+          Current Fixed Costs (approx): <span id="fixedSumDisplay">0</span> $
+        </div>
+
+        <div class="actions">
+          <button class="secondary" data-tab-jump="sales">Back: Revenue</button>
+          <button id="toVariable" class="primary">Next: Variable Costs</button>
+        </div>
+      </section>
+
+      <!-- 3. Variable Costs -->
+      <section id="tab-variable" class="tab-panel">
+        <h2>3. Variable Costs</h2>
+        <p>Enter costs that increase as your revenue increases.</p>
+
+        <!-- Ingredients -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Cost of Goods (Ingredients)</h3>
+            <button class="pass-button" data-pass-group="ingredients">Pass</button>
+          </div>
+          <div class="card-body" data-group="ingredients">
+            <div class="field inline">
+              <label>Input Method</label>
+              <label class="radio">
+                <input type="radio" name="ingredientsMode" value="percent" checked />
+                Percentage of Revenue (%)
+              </label>
+              <label class="radio">
+                <input type="radio" name="ingredientsMode" value="amount" />
+                Monthly Amount ($)
+              </label>
+            </div>
+
+            <div class="field" data-ingredients-mode="percent">
+              <label for="ingredientsRateInput">COGS Rate</label>
+              <div class="input-with-unit">
+                <input id="ingredientsRateInput" type="number" min="0" max="100" step="0.1" placeholder="e.g. 30" />
+                <span class="unit">%</span>
+              </div>
+            </div>
+
+            <div class="field hidden" data-ingredients-mode="amount">
+              <label for="ingredientsAmountInput">COGS Amount</label>
+              <div class="input-with-unit">
+                <input id="ingredientsAmountInput" type="number" min="0" placeholder="e.g. 9000" />
+                <span class="unit">$</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delivery Commission -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Delivery App Commission</h3>
+            <button class="pass-button" data-pass-group="deliveryCommission">Pass</button>
+          </div>
+          <div class="card-body" data-group="deliveryCommission">
+            <div class="field">
+              <label for="deliveryRateInput">Commission Rate (% of Revenue)</label>
+              <div class="input-with-unit">
+                <input id="deliveryRateInput" type="number" min="0" max="100" step="0.1" placeholder="e.g. 10" />
+                <span class="unit">%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Fee -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Card / Payment Gateway Fees</h3>
+            <button class="pass-button" data-pass-group="cardFee">Pass</button>
+          </div>
+          <div class="card-body" data-group="cardFee">
+            <div class="field">
+              <label for="cardRateInput">Card Fee Rate (% of Revenue)</label>
+              <div class="input-with-unit">
+                <input id="cardRateInput" type="number" min="0" max="100" step="0.1" placeholder="e.g. 2.9" />
+                <span class="unit">%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other Variable -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Other Variable Costs</h3>
+            <button class="pass-button" data-pass-group="variableOther">Pass</button>
+          </div>
+          <div class="card-body" data-group="variableOther">
+            <p class="hint">
+              Electricity, gas, extra delivery fees, marketing, repairs, supplies, etc.
+              Enter the approximate total per month.
+            </p>
+            <div class="field">
+              <label for="variableOtherInput">Total Misc. Variable Costs</label>
+              <div class="input-with-unit">
+                <input id="variableOtherInput" type="number" min="0" placeholder="e.g. 3000" />
+                <span class="unit">$</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-line">
+          Current Variable Costs (approx): <span id="variableSumDisplay">0</span> $
+        </div>
+
+        <div class="actions">
+          <button class="secondary" data-tab-jump="fixed">Back: Fixed Costs</button>
+          <button id="toResult" class="primary">View Results</button>
+        </div>
+      </section>
+
+      <!-- 4. Results -->
+      <section id="tab-result" class="tab-panel">
+        <h2>4. Results</h2>
+        <p>Here are your calculated results based on the inputs (USD).</p>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <h3>Summary</h3>
+            <p><strong>Monthly Revenue:</strong> <span id="resSales">-</span> $</p>
+            <p><strong>Total Variable Costs:</strong> <span id="resVariable">-</span> $</p>
+            <p><strong>Total Fixed Costs:</strong> <span id="resFixed">-</span> $</p>
+          </div>
+
+          <div class="result-card">
+            <h3>Net Profit</h3>
+            <p><strong>Business Profit<br>(excluding owner wage):</strong><br>
+              <span id="resBusinessProfit">-</span> $</p>
+            <p><strong>Net After Owner Wage<br>(final balance):</strong><br>
+              <span id="resNetAfterOwner">-</span> $</p>
+            <p><strong>Net Profit Margin:</strong> <span id="resNetMargin">-</span></p>
+          </div>
+
+          <div class="result-card">
+            <h3>Break-even Point</h3>
+            <p><strong>Break-even Revenue:</strong> <span id="resBreakEvenSales">-</span> $</p>
+            <p><strong>Current Revenue vs Break-even:</strong> <span id="resBreakEvenCoverage">-</span></p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="secondary" data-tab-jump="sales">Start Over</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

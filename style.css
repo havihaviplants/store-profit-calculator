@@ -1,0 +1,241 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f6fa;
+  color: #222;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.app-header {
+  margin-bottom: 16px;
+}
+
+.app-header h1 {
+  margin: 0 0 4px;
+  font-size: 24px;
+}
+
+.subtitle {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin: 16px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 10px 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  border-bottom: 2px solid transparent;
+}
+
+.tab-button.active {
+  border-bottom-color: #2563eb;
+  color: #2563eb;
+  font-weight: 600;
+  background: #eef2ff;
+}
+
+.tab-content {
+  margin-top: 8px;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+/* Cards */
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 12px 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.card-body {
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+}
+
+.card-body.disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* Fields */
+.field {
+  margin-bottom: 10px;
+}
+
+.field.inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.input-with-unit {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.input-with-unit input {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.unit {
+  font-size: 13px;
+  color: #555;
+}
+
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.radio input {
+  margin: 0;
+}
+
+/* Buttons */
+.actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+button.primary,
+button.secondary {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button.primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+button.secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+button.primary:hover {
+  background: #1d4ed8;
+}
+
+button.secondary:hover {
+  background: #d1d5db;
+}
+
+.pass-button {
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.pass-button.active {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+/* Summary */
+.summary-line {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #374151;
+}
+
+.summary-line span {
+  font-weight: 600;
+}
+
+/* Result */
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.result-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  font-size: 14px;
+}
+
+.result-card h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.result-card p {
+  margin: 4px 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.hint {
+  font-size: 12px;
+  color: #6b7280;
+}
